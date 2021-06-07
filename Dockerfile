@@ -71,7 +71,7 @@ ENV PATH ${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
 # Add entrypoint
 ENV PYTHONUNBUFFERED=1
 
-COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 # Specify the default command to run
 CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
