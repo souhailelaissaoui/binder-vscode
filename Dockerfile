@@ -88,8 +88,8 @@ USER ${NB_USER}
 
 USER root
 #RUN TIMEFORMAT='time: %3R' \
-bash -c 'time /tmp/install-miniforge.bash' && \
-rm /tmp/install-miniforge.bash /tmp/environment.yml
+#bash -c 'time /tmp/install-miniforge.bash' && \
+#rm /tmp/install-miniforge.bash /tmp/environment.yml
 
 
 
