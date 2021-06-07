@@ -106,7 +106,7 @@ RUN	$CONDA_DIR/bin/pip  install --index-url https://test.pypi.org/simple/ \
 ##
 ## Build jupyter lab extensions
 ##
-RUN	jupyter lab build --dev-build=False && jupyter lab clean
+#RUN	jupyter lab build --dev-build=False && jupyter lab clean
 
 COPY	start-notebook.d /usr/local/bin/start-notebook.d
 COPY	start-notebook.d /usr/local/bin/before-notebook.d
