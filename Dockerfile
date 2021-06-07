@@ -3,6 +3,10 @@
 #
 ARG BASE_CONTAINER=jupyter/datascience-notebook:lab-2.2.9
 FROM $BASE_CONTAINER
+ENV HTTPS_PROXY="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
+ENV HTTP_PROXY="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
+ENV http_proxy="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
+ENV https_proxy="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
 LABEL MAINTAINER="CSEL Ops <admin@cs.colorado.edu>"
 
 #############################################################################
