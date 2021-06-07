@@ -119,11 +119,11 @@ ENV CONDA_DEFAULT_ENV ${KERNEL_PYTHON_PREFIX}
 
 #COPY --chown=1000:1000 src/environment.yml ${REPO_DIR}/environment.yml
 USER ${NB_USER}
-RUN TIMEFORMAT='time: %3R' \
-bash -c 'time mamba env update -p ${NB_PYTHON_PREFIX} -f "environment.yml" && \
-time mamba clean --all -f -y && \
-mamba list -p ${NB_PYTHON_PREFIX} \
-'
+#RUN TIMEFORMAT='time: %3R' \
+#bash -c 'time mamba env update -p ${NB_PYTHON_PREFIX} -f "environment.yml" && \
+#time mamba clean --all -f -y && \
+#mamba list -p ${NB_PYTHON_PREFIX} \
+#'
 
 
 
