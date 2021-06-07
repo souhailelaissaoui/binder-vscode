@@ -1,7 +1,7 @@
 #
 # You need to change the BASE_CONTAINER in the Makefile, not here
 #
-ARG BASE_CONTAINER=this/is-a-place-holder
+ARG BASE_CONTAINER=jupyter/datascience-notebook:lab-2.2.9
 FROM $BASE_CONTAINER
 LABEL MAINTAINER="CSEL Ops <admin@cs.colorado.edu>"
 
