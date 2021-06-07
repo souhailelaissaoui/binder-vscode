@@ -1,0 +1,45 @@
+ARG BASE_CONTAINER=define_as_build_arg
+#
+# From https://github.com/almond-sh/almond
+#
+FROM $BASE_CONTAINER as coursier_base
+LABEL MAINTAINER="CSEL Ops <admin@cs.colorado.edu>"
+
+ARG   LOCAL_IVY=no
+
+USER root
+
+RUN apt-get -y update && \
+    apt-get install --no-install-recommends -y \
+      curl \
+      openjdk-8-jre-headless \
+      ca-certificates-java && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN curl -Lo /usr/local/bin/coursier https://github.com/coursier/coursier/releases/download/v2.0.0-RC3-2/coursier && \
+    chmod +x /usr/local/bin/coursier
+
+USER $NB_UID
+
+# ensure the JAR of the CLI is in the coursier cache, in the image
+RUN /usr/local/bin/coursier --help
+
+ARG ALMOND_VERSION
+# Set to a single Scala version string or list of Scala versions separated by a space.
+# i.e SCALA_VERSIONS="2.12.9 2.13.0"
+ARG SCALA_VERSIONS
+COPY scripts/pl-install-kernels.sh .
+
+USER root
+RUN 	./pl-install-kernels.sh && \
+	rm pl-install-kernels.sh && \
+	rm -rf .ivy2 && \
+	ipython kernelspec list
+	
+RUN     ls -lR /home/jovyan && \
+	rm -rf /home/jovyan  && \
+        mkdir /home/jovyan && \
+        chown $NB_UID:$NB_GID /home/jovyan
+
+USER    $NB_UID

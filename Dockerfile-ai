@@ -1,0 +1,43 @@
+ARG BASE_CONTAINER=define_as_build_arg
+FROM ${BASE_CONTAINER}
+LABEL MAINTAINER="CSEL Ops <admin@cs.colorado.edu>"
+
+USER root
+
+ENV DEBIAN_FRONTEND noninteractive
+
+#
+# Add material for AI classes
+#
+
+RUN	conda install -c conda-forge scikit-learn=0.22.* && \
+	$CONDA_DIR/bin/pip install bqplot ipythonblocks tensorflow qpsolvers \
+			   quadprog opencv-python keras Image jp_proxy_widget \
+			   git+https://github.com/aaronwatters/jp_doodle && \
+	jupyter labextension install  --no-build bqplot && \
+	jupyter nbextension enable --py --sys-prefix jp_proxy_widget && \
+	jupyter labextension install  --no-build jp_proxy_widget
+
+##
+## Installation crafted by looking at their installScripts/JupyterhubInstall.sh
+##
+RUN	cd /opt && \
+	git clone https://github.com/AISpace2/AISpace2.git && \
+	cd AISpace2 && \
+	(cd js ; npm install) && \
+	pip install -r requirements-dev.txt && \
+	pip install -e . && \	
+	cd js && \
+	npm run update-lab-extension && \
+	jupyter labextension install
+	
+##
+## Build jupyter lab extensions
+##
+RUN	jupyter lab build
+
+RUN     rm -rf /home/jovyan  && \
+        mkdir /home/jovyan && \
+        chown $NB_UID:$NB_GID /home/jovyan
+
+USER    $NB_UID
