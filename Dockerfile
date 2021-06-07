@@ -1,12 +1,5 @@
 FROM buildpack-deps:bionic
 
-ENV HTTP_PROXY="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
-ENV HTTPS_PROXY="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
-ENV http_proxy="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
-ENV https_proxy="http://proxy-gdpshs-p.we1.azure.aztec.cloud.allianz:80"
-ENV no_proxy="10.100.0.0/16,172.20.0.0/16,localhost,127.0.0.1, .internal, .local, .ec1.aws.aztec.cloud.allianz, 169.254.169.254,logs.eu-central-1.amazonaws.com,ec2.eu-central-1.amazonaws.com,ecr.eu-central-1.amazonaws.com,sts.eu-central-1.amazonaws.com,elasticloadbalancing.eu-central-1.amazonaws.com,autoscaling.eu-central-1.amazonaws.com, s3.eu-central-1.amazonaws.com, .gitlab.gda.allianz, .gda.allianz,"
-ENV NO_PROXY="10.100.0.0/16,172.20.0.0/16,localhost,127.0.0.1, .internal, .local, .ec1.aws.aztec.cloud.allianz, 169.254.169.254,logs.eu-central-1.amazonaws.com,ec2.eu-central-1.amazonaws.com,ecr.eu-central-1.amazonaws.com,sts.eu-central-1.amazonaws.com,elasticloadbalancing.eu-central-1.amazonaws.com,autoscaling.eu-central-1.amazonaws.com, s3.eu-central-1.amazonaws.com, .gitlab.gda.allianz, .gda.allianz,"
-
 # Avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -45,10 +38,10 @@ RUN groupadd \
         --uid ${NB_UID} \
         ${NB_USER}
 
-#RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  apt-key add - && \
-#    DISTRO="bionic" && \
-#    echo "deb https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list && \
-#    echo "deb-src https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list
+RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  apt-key add - && \
+    DISTRO="bionic" && \
+    echo "deb https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb-src https://deb.nodesource.com/node_14.x $DISTRO main" >> /etc/apt/sources.list.d/nodesource.list
 
 # Base package installs are not super interesting to users, so hide their outputs
 # If install fails for some reason, errors will still be printed
@@ -75,21 +68,21 @@ ENV KERNEL_PYTHON_PREFIX ${NB_PYTHON_PREFIX}
 ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
 # If scripts required during build are present, copy them
 
-#COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-71eae2 /etc/profile.d/activate-conda.sh
+COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-71eae2 /etc/profile.d/activate-conda.sh
 
-#COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2efrozen-2eyml-d1d5a1 /tmp/environment.yml
+COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2efrozen-2eyml-d1d5a1 /tmp/environment.yml
 
-#COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dminiforge-2ebash-0fa46c /tmp/install-miniforge.bash
+COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dminiforge-2ebash-0fa46c /tmp/install-miniforge.bash
 RUN mkdir -p ${NPM_DIR} && \
 chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
 
 USER ${NB_USER}
-#RUN npm config --global set prefix ${NPM_DIR}
+RUN npm config --global set prefix ${NPM_DIR}
 
 USER root
-#RUN TIMEFORMAT='time: %3R' \
-#bash -c 'time /tmp/install-miniforge.bash' && \
-#rm /tmp/install-miniforge.bash /tmp/environment.yml
+RUN TIMEFORMAT='time: %3R' \
+bash -c 'time /tmp/install-miniforge.bash' && \
+rm /tmp/install-miniforge.bash /tmp/environment.yml
 
 
 
@@ -117,18 +110,18 @@ ENV CONDA_DEFAULT_ENV ${KERNEL_PYTHON_PREFIX}
 # example installing APT packages.
 # If scripts required during build are present, copy them
 
-#COPY --chown=1000:1000 src/environment.yml ${REPO_DIR}/environment.yml
+COPY --chown=1000:1000 src/environment.yml ${REPO_DIR}/environment.yml
 USER ${NB_USER}
-#RUN TIMEFORMAT='time: %3R' \
-#bash -c 'time mamba env update -p ${NB_PYTHON_PREFIX} -f "environment.yml" && \
-#time mamba clean --all -f -y && \
-#mamba list -p ${NB_PYTHON_PREFIX} \
-#'
+RUN TIMEFORMAT='time: %3R' \
+bash -c 'time mamba env update -p ${NB_PYTHON_PREFIX} -f "environment.yml" && \
+time mamba clean --all -f -y && \
+mamba list -p ${NB_PYTHON_PREFIX} \
+'
 
 
 
 # Copy stuff.
-#COPY --chown=1000:1000 src/ ${REPO_DIR}
+COPY --chown=1000:1000 src/ ${REPO_DIR}
 
 # Run assemble scripts! These will actually turn the specification
 # in the repository into an image.
@@ -139,15 +132,19 @@ USER ${NB_USER}
 # when these change! Did I mention I hate Dockerfile cache semantics?
 
 LABEL repo2docker.ref="None"
-LABEL repo2docker.repo="https://github.com/binder-examples/conda"
+LABEL repo2docker.repo="https://github.com/betatim/vscode-binder.git"
 LABEL repo2docker.version="2021.03.0"
 
 # We always want containers to run as non-root
 USER ${NB_USER}
 
+# Make sure that postBuild scripts are marked executable before executing them
+RUN chmod +x postBuild
+RUN ./postBuild
+
 # Add start script
 # Add entrypoint
-#COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 
 # Specify the default command to run
