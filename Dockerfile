@@ -38,8 +38,7 @@ RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  ap
 # If install fails for some reason, errors will still be printed
 RUN apt-get -qq update && \
     apt-get -qq install --yes --no-install-recommends \
-    less nodejs unzip
-    > /dev/null && \
+    less nodejs unzip && \
     apt-get -qq purge && \
     apt-get -qq clean && \
     rm -rf /var/lib/apt/lists/*
