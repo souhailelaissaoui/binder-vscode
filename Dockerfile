@@ -38,27 +38,27 @@ RUN apt-get update \
 
 RUN	$CONDA_DIR/bin/pip install nbgitpuller
 
-RUN    jupyter labextension install  --no-build @jupyterlab/git && \
-       $CONDA_DIR/bin/pip install -U jupyterlab-git  &&\
-       jupyter serverextension enable --py --sys-prefix jupyterlab_git
+#RUN    jupyter labextension install  --no-build @jupyterlab/git && \
+#       $CONDA_DIR/bin/pip install -U jupyterlab-git  &&\
+#       jupyter serverextension enable --py --sys-prefix jupyterlab_git
 
 #RUN 	$CONDA_DIR/bin/pip install jupyterlab_latex && \
 #	conda clean -afy && \
 #	jupyter labextension install @jupyterlab/latex && \
 
-RUN	jupyter labextension install --no-build jupyterlab-drawio
+#RUN	jupyter labextension install --no-build jupyterlab-drawio
 
-RUN	curl https://cli-assets.heroku.com/install.sh | sh
+#RUN	curl https://cli-assets.heroku.com/install.sh | sh
 
-RUN     conda install -c conda-forge --freeze-installed \
-              libiconv python-language-server flake8 autopep8 \
-	      altair vega_datasets \
-	      bokeh datashader holoviews \
-	      xeus-cling \
-              jupyter-server-proxy cppcheck && \
-	jupyter labextension install --no-build @jupyterlab/server-proxy && \
-	echo "y" | /opt/conda/bin/jupyter-kernelspec remove -y xcpp11 xcpp14 && \
-        conda clean -afy
+#RUN     conda install -c conda-forge --freeze-installed \
+#              libiconv python-language-server flake8 autopep8 \
+#	      altair vega_datasets \
+#	      bokeh datashader holoviews \
+#	      xeus-cling \
+ #             jupyter-server-proxy cppcheck && \
+#	jupyter labextension install --no-build @jupyterlab/server-proxy && \
+#	echo "y" | /opt/conda/bin/jupyter-kernelspec remove -y xcpp11 xcpp14 && \
+#        conda clean -afy
 
 RUN	pip install networkx pygraphviz pydot pyyaml
 
