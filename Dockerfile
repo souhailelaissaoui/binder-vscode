@@ -101,7 +101,7 @@ RUN	$CONDA_DIR/bin/pip  install --index-url https://test.pypi.org/simple/ \
 ##
 ## jupyter-archive
 ##
-RUN conda install -c conda-forge nodejs jupyter-archive
+#RUN conda install -c conda-forge nodejs jupyter-archive
 
 ##
 ## Build jupyter lab extensions
