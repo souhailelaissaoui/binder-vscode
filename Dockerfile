@@ -84,7 +84,7 @@ RUN mkdir -p ${NPM_DIR} && \
 chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
 
 USER ${NB_USER}
-RUN npm config --global set prefix ${NPM_DIR}
+#RUN npm config --global set prefix ${NPM_DIR}
 
 USER root
 RUN TIMEFORMAT='time: %3R' \
