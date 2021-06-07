@@ -117,7 +117,7 @@ ENV CONDA_DEFAULT_ENV ${KERNEL_PYTHON_PREFIX}
 # example installing APT packages.
 # If scripts required during build are present, copy them
 
-COPY --chown=1000:1000 src/environment.yml ${REPO_DIR}/environment.yml
+#COPY --chown=1000:1000 src/environment.yml ${REPO_DIR}/environment.yml
 USER ${NB_USER}
 RUN TIMEFORMAT='time: %3R' \
 bash -c 'time mamba env update -p ${NB_PYTHON_PREFIX} -f "environment.yml" && \
