@@ -75,11 +75,11 @@ ENV KERNEL_PYTHON_PREFIX ${NB_PYTHON_PREFIX}
 ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:${PATH}
 # If scripts required during build are present, copy them
 
-COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-71eae2 /etc/profile.d/activate-conda.sh
+#COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2factivate-2dconda-2esh-71eae2 /etc/profile.d/activate-conda.sh
 
-COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2efrozen-2eyml-d1d5a1 /tmp/environment.yml
+#COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2fenvironment-2efrozen-2eyml-d1d5a1 /tmp/environment.yml
 
-COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dminiforge-2ebash-0fa46c /tmp/install-miniforge.bash
+#COPY --chown=1000:1000 build_script_files/-2fusr-2flocal-2flib-2fpython3-2e9-2fsite-2dpackages-2frepo2docker-2fbuildpacks-2fconda-2finstall-2dminiforge-2ebash-0fa46c /tmp/install-miniforge.bash
 RUN mkdir -p ${NPM_DIR} && \
 chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
 
