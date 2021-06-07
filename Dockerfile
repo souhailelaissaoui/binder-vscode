@@ -128,7 +128,7 @@ USER ${NB_USER}
 
 
 # Copy stuff.
-COPY --chown=1000:1000 src/ ${REPO_DIR}
+#COPY --chown=1000:1000 src/ ${REPO_DIR}
 
 # Run assemble scripts! These will actually turn the specification
 # in the repository into an image.
