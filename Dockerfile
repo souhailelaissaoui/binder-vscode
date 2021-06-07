@@ -147,7 +147,7 @@ USER ${NB_USER}
 
 # Add start script
 # Add entrypoint
-COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
+#COPY /repo2docker-entrypoint /usr/local/bin/repo2docker-entrypoint
 ENTRYPOINT ["/usr/local/bin/repo2docker-entrypoint"]
 
 # Specify the default command to run
