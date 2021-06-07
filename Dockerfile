@@ -87,7 +87,7 @@ USER ${NB_USER}
 #RUN npm config --global set prefix ${NPM_DIR}
 
 USER root
-RUN TIMEFORMAT='time: %3R' \
+#RUN TIMEFORMAT='time: %3R' \
 bash -c 'time /tmp/install-miniforge.bash' && \
 rm /tmp/install-miniforge.bash /tmp/environment.yml
 
